@@ -21,7 +21,14 @@ repositories {
 }
 
 dependencies {
-
+    // JDA
+    implementation group: 'net.dv8tion', name: 'JDA', version: '5.0.0-alpha.20'
+    // Annotation processor
+    api group: 'org.atteo.classindex', name: 'classindex', version: '3.11'
+    annotationProcessor group: 'org.atteo.classindex', name: 'classindex', version: '3.11'
+    // Jeflect and other utils
+    api group: 'com.github.romanqed', name: 'jeflect', version: '3.0.0'
+    api group: 'com.github.romanqed', name: 'java-utils', version: '1.3.0'
 }
 
 jar {
