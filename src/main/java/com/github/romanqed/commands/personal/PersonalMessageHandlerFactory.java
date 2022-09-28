@@ -1,5 +1,6 @@
-package com.github.romanqed.commands.guild;
+package com.github.romanqed.commands.personal;
 
+import com.github.romanqed.commands.CommonDiscordCommand;
 import com.github.romanqed.commands.MessageHandler;
 import com.github.romanqed.commands.MessageHandlerFactory;
 import com.github.romanqed.commands.Util;
@@ -12,26 +13,26 @@ import com.github.romanqed.util.Tokenizer;
 
 import java.util.Map;
 
-public class GuildMessageHandlerFactory implements MessageHandlerFactory<GuildDiscordCommand> {
-    private final Map<String, GuildDiscordCommand> commands;
+public class PersonalMessageHandlerFactory implements MessageHandlerFactory<CommonDiscordCommand> {
+    private final Map<String, CommonDiscordCommand> commands;
 
-    public GuildMessageHandlerFactory(DefineLoader loader) {
+    public PersonalMessageHandlerFactory(DefineLoader loader) {
         try {
             LambdaFactory lambdaFactory = new LambdaFactory(loader);
             ArgumentFilterFactory filterFactory = CodecFilterFactory.getInstance();
-            GuildDiscordCommandFactory factory = new GuildDiscordCommandFactory(lambdaFactory, filterFactory);
-            this.commands = Util.findCommands(factory, GuildCommand.class);
+            PersonalDiscordCommandFactory factory = new PersonalDiscordCommandFactory(lambdaFactory, filterFactory);
+            this.commands = Util.findCommands(factory, PersonalCommand.class);
         } catch (Exception e) {
             throw new IllegalStateException("Can't initialize factory due to", e);
         }
     }
 
-    public GuildMessageHandlerFactory() {
+    public PersonalMessageHandlerFactory() {
         this(new DefineClassLoader());
     }
 
     @Override
-    public MessageHandler<GuildDiscordCommand> create(Tokenizer tokenizer) {
-        return new GuildMessageHandler(commands, tokenizer);
+    public MessageHandler<CommonDiscordCommand> create(Tokenizer tokenizer) {
+        return new PersonalMessageHandler(commands, tokenizer);
     }
 }

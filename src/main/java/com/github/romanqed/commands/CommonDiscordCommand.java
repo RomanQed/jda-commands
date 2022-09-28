@@ -12,7 +12,7 @@ public class CommonDiscordCommand implements DiscordCommand {
     private String help;
     private String description;
 
-    protected CommonDiscordCommand(String name, Lambda body, Action<List<String>, Object[]> filter) {
+    public CommonDiscordCommand(String name, Lambda body, Action<List<String>, Object[]> filter) {
         this.name = name;
         this.body = body;
         this.filter = filter;
@@ -28,6 +28,10 @@ public class CommonDiscordCommand implements DiscordCommand {
         return help;
     }
 
+    public void setHelp(String help) {
+        this.help = help;
+    }
+
     @Override
     public Lambda getBody() {
         return body;
@@ -41,10 +45,6 @@ public class CommonDiscordCommand implements DiscordCommand {
     @Override
     public String getDescription() {
         return description;
-    }
-
-    public void setHelp(String help) {
-        this.help = help;
     }
 
     public void setDescription(String description) {
