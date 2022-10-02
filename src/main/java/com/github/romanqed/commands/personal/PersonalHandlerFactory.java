@@ -6,33 +6,31 @@ import com.github.romanqed.commands.MessageHandlerFactory;
 import com.github.romanqed.commands.Util;
 import com.github.romanqed.commands.filters.ArgumentFilterFactory;
 import com.github.romanqed.commands.filters.CodecFilterFactory;
-import com.github.romanqed.jeflect.DefineClassLoader;
-import com.github.romanqed.jeflect.DefineLoader;
 import com.github.romanqed.jeflect.lambdas.LambdaFactory;
 import com.github.romanqed.util.Tokenizer;
 
 import java.util.Map;
 
-public class PersonalMessageHandlerFactory implements MessageHandlerFactory<CommonDiscordCommand> {
-    private final Map<String, CommonDiscordCommand> commands;
+public class PersonalHandlerFactory implements MessageHandlerFactory<CommonDiscordCommand> {
+    private static final Map<String, CommonDiscordCommand> COMMANDS;
 
-    public PersonalMessageHandlerFactory(DefineLoader loader) {
+    static {
         try {
-            LambdaFactory lambdaFactory = new LambdaFactory(loader);
+            LambdaFactory lambdaFactory = new LambdaFactory();
             ArgumentFilterFactory filterFactory = CodecFilterFactory.getInstance();
-            PersonalDiscordCommandFactory factory = new PersonalDiscordCommandFactory(lambdaFactory, filterFactory);
-            this.commands = Util.findCommands(factory, PersonalCommand.class);
+            var factory = new PersonalDiscordCommandFactory(lambdaFactory, filterFactory);
+            COMMANDS = Util.findCommands(factory, PersonalCommand.class);
         } catch (Exception e) {
             throw new IllegalStateException("Can't initialize factory due to", e);
         }
     }
 
-    public PersonalMessageHandlerFactory() {
-        this(new DefineClassLoader());
+    public static Map<String, CommonDiscordCommand> getCommands() {
+        return COMMANDS;
     }
 
     @Override
     public MessageHandler<CommonDiscordCommand> create(Tokenizer tokenizer) {
-        return new PersonalMessageHandler(commands, tokenizer);
+        return new PersonalMessageHandler(COMMANDS, tokenizer);
     }
 }

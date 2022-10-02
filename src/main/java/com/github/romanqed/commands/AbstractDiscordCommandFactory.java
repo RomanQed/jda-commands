@@ -30,6 +30,22 @@ public abstract class AbstractDiscordCommandFactory<T extends DiscordCommand> im
         }
     }
 
+    protected String extractDescription(Class<?> clazz) {
+        Description description = clazz.getAnnotation(Description.class);
+        if (description == null) {
+            return "";
+        }
+        return description.value();
+    }
+
+    protected String extractHelp(Class<?> clazz) {
+        Help help = clazz.getAnnotation(Help.class);
+        if (help == null) {
+            return "";
+        }
+        return help.value();
+    }
+
     protected Method findMethod(Method[] methods) {
         if (methods.length == 1) {
             validate(methods[0]);

@@ -46,6 +46,9 @@ public class GuildDiscordCommandFactory extends AbstractDiscordCommandFactory<Gu
         Set<String> roles = extractData(clazz.getAnnotation(GuildRole.class));
         // Pack command method to lambda
         Lambda packed = packMethod(found);
-        return new GuildDiscordCommand(command.value(), packed, filter, permissions, roles);
+        var ret = new GuildDiscordCommand(command.value(), packed, filter, permissions, roles);
+        ret.setDescription(extractDescription(clazz));
+        ret.setHelp(extractHelp(clazz));
+        return ret;
     }
 }

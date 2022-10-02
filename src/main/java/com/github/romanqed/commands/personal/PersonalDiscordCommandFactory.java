@@ -28,6 +28,9 @@ public class PersonalDiscordCommandFactory extends AbstractDiscordCommandFactory
         Action<List<String>, Object[]> filter = createFilter(found);
         // Pack command method to lambda
         Lambda packed = packMethod(found);
-        return new CommonDiscordCommand(command.value(), packed, filter);
+        var ret = new CommonDiscordCommand(command.value(), packed, filter);
+        ret.setDescription(extractDescription(clazz));
+        ret.setHelp(extractHelp(clazz));
+        return ret;
     }
 }

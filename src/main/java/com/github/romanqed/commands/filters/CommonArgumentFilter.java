@@ -6,7 +6,7 @@ import com.github.romanqed.util.Action;
 import java.util.List;
 import java.util.function.Function;
 
-class CommonArgumentFilter implements Action<List<String>, Object[]> {
+final class CommonArgumentFilter implements Action<List<String>, Object[]> {
     private final List<Function<String, Object>> fixed;
     private final List<Function<String, Object>> optional;
 

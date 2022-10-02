@@ -10,7 +10,7 @@ import java.lang.reflect.Parameter;
 import java.util.*;
 import java.util.function.Function;
 
-public class CodecFilterFactory implements ArgumentFilterFactory {
+public final class CodecFilterFactory implements ArgumentFilterFactory {
     private final Map<Class<?>, Function<String, Object>> codecs;
 
     private CodecFilterFactory(Map<Class<?>, Function<String, Object>> codecs) {

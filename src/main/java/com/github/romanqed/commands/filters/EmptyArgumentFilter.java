@@ -5,7 +5,7 @@ import com.github.romanqed.util.Action;
 
 import java.util.List;
 
-class EmptyArgumentFilter implements Action<List<String>, Object[]> {
+final class EmptyArgumentFilter implements Action<List<String>, Object[]> {
     private static final Object[] EMPTY_ARRAY = new Object[0];
 
     @Override

@@ -7,7 +7,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Util {
+public final class Util {
     public static <T extends DiscordCommand> Map<String, T> findCommands(
             DiscordCommandFactory<T> factory,
             Class<? extends Annotation> annotation) throws Exception {
